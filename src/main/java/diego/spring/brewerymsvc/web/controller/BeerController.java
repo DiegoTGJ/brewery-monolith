@@ -2,12 +2,10 @@ package diego.spring.brewerymsvc.web.controller;
 
 import diego.spring.brewerymsvc.web.model.BeerDTO;
 import diego.spring.brewerymsvc.web.services.BeerService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -25,5 +23,29 @@ public class BeerController {
     public ResponseEntity<BeerDTO> getBeer(@PathVariable("beerId") UUID beerId){
 
         return new ResponseEntity<>(beerService.getBeerById(beerId), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<BeerDTO> handlePost(@RequestBody BeerDTO beerDTO){
+
+        BeerDTO saveDTO = beerService.save(beerDTO);
+        //todo refactor add hostname to url
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "http://localhost:8080/api/v1/beer/"+saveDTO.getId().toString());
+
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{beerId}")
+    public ResponseEntity<BeerDTO> handleUpdate(@PathVariable("beerId") UUID beerId,@RequestBody BeerDTO beerDTO){
+        beerService.updateBeer(beerId, beerDTO);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/{beerId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBeer(@PathVariable("beerId") UUID beerId){
+        beerService.deleteById(beerId);
     }
 }
