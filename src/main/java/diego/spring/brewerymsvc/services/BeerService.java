@@ -1,4 +1,4 @@
-package diego.spring.brewerymsvc.web.services;
+package diego.spring.brewerymsvc.services;
 
 
 import diego.spring.brewerymsvc.web.model.BeerDTO;

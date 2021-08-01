@@ -1,7 +1,7 @@
-package diego.spring.brewerymsvc.web.services.impl;
+package diego.spring.brewerymsvc.services.impl;
 
 import diego.spring.brewerymsvc.web.model.BeerDTO;
-import diego.spring.brewerymsvc.web.services.BeerService;
+import diego.spring.brewerymsvc.services.BeerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +29,7 @@ public class BeerServiceImpl implements BeerService {
     @Override
     public void updateBeer(UUID beerId, BeerDTO beerDTO) {
         //todo add real update beer impl
+        log.debug("Updating a beer");
     }
 
     @Override
