@@ -1,2 +1,2 @@
 # brewery-msvc
-Brewery micro service
+Brewery monolith
